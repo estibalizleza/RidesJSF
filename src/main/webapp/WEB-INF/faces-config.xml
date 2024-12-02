@@ -10,17 +10,13 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-
-		<managed-bean-name>Main</managed-bean-name>
-
-		<managed-bean-class>rides.bean.MainBean</managed-bean-class>
-
-		<managed-bean-scope>session</managed-bean-scope>
-
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>QueryRides</managed-bean-name>
 		<managed-bean-class>rides.bean.QueryRidesBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>Main</managed-bean-name>
+		<managed-bean-class>rides.bean.MainBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 

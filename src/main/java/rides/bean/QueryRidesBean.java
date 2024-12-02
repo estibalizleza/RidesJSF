@@ -34,6 +34,7 @@ public class QueryRidesBean {
 		this.departCities = new ArrayList<>();
 		this.arrivalCities = new ArrayList<>();
 		departCities = businessLogic.getDepartCities();
+		System.out.println(departCities);
 		filteredRides = new ArrayList<>();
 
 	}
@@ -51,9 +52,7 @@ public class QueryRidesBean {
 	}
 
 	public void setSelectedDepartCity(String selectedDepartCity) {
-		System.out.println(selectedDepartCity + "set select metodoan");
 		this.selectedDepartCity = selectedDepartCity;
-		// Update arrival cities when the departure city changes
 		updateArrivalCities();
 	}
 
@@ -102,19 +101,33 @@ public class QueryRidesBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("" + event.getObject()));
 	}
 
-	public void updateRides() {
+	public boolean updateRides() {
 		if (selectedDepartCity != null && selectedArrivalCity != null && data != null) {
 			filteredRides = businessLogic.getRides(selectedDepartCity, selectedArrivalCity, data);
 			if (filteredRides == null || filteredRides.isEmpty()) {
 				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "No rides found for the selected criteria.", ""));
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Sartutako parametroetarako ez da bidairik aurkitu", ""));
+				return false;
 			}
+			return true;
 		} else {
 			filteredRides = null;
+			return false;
 		}
 	}
 	
 	public void sartuArrivalCities() {
 		System.out.println(this.selectedArrivalCity + "listener");
+	}
+	
+	public String close() {
+		return "Main";
+	}
+	
+	public void updateCalendarDates() {
+	    if (selectedDepartCity != null && selectedArrivalCity != null && data != null) {
+	        List<Date> availableDates = businessLogic.getThisMonthDatesWithRides(selectedDepartCity, selectedArrivalCity, data);
+	        updateCalendarWithAvailableDates(availableDates);
+	    }
 	}
 }
